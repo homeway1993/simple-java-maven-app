@@ -5,6 +5,9 @@ pipeline {
             args '-v /root/maven/.m2:/root/.m2 -v /root/maven/conf:/usr/share/maven/conf'
         }
     }
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Build') {
             steps {
