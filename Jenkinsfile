@@ -11,14 +11,6 @@ pipeline {
             steps {
                 checkout([
                     $class: 'SubversionSCM',
-                    additionalCredentials: [],
-                    excludedCommitMessages: '',
-                    excludedRegions: '',
-                    excludedRevprop: '',
-                    excludedUsers: '',
-                    filterChangelog: false,
-                    ignoreDirPropChanges: false,
-                    includedRegions: '',
                     locations: [
                       [
                         remote: 'https://svn.chowsangsang.com/repos/uat/oc_storefront/microservice/oc-shopping-list/develop/omni-channel-phase1',
