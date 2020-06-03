@@ -8,27 +8,29 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            checkout([
-                $class: 'SubversionSCM',
-                additionalCredentials: [],
-                excludedCommitMessages: '',
-                excludedRegions: '',
-                excludedRevprop: '',
-                excludedUsers: '',
-                filterChangelog: false,
-                ignoreDirPropChanges: false,
-                includedRegions: '',
-                locations: [
-                  [
-                    remote: 'https://svn.chowsangsang.com/repos/uat/oc_storefront/microservice/oc-shopping-list/develop/omni-channel-phase1',
-                    cancelProcessOnExternalsFail: true,
-                    credentialsId: '2babdd56-e2f1-4f9b-b5fc-e4b73bb77ddf',
-                    depthOption: 'infinity',
-                    ignoreExternalsOption: true,
-                    local: 'microservice/oc-shopping-list'
-                  ]
-                ]
-            ])
+            steps {
+                checkout([
+                    $class: 'SubversionSCM',
+                    additionalCredentials: [],
+                    excludedCommitMessages: '',
+                    excludedRegions: '',
+                    excludedRevprop: '',
+                    excludedUsers: '',
+                    filterChangelog: false,
+                    ignoreDirPropChanges: false,
+                    includedRegions: '',
+                    locations: [
+                      [
+                        remote: 'https://svn.chowsangsang.com/repos/uat/oc_storefront/microservice/oc-shopping-list/develop/omni-channel-phase1',
+                        cancelProcessOnExternalsFail: true,
+                        credentialsId: '2babdd56-e2f1-4f9b-b5fc-e4b73bb77ddf',
+                        depthOption: 'infinity',
+                        ignoreExternalsOption: true,
+                        local: 'microservice/oc-shopping-list'
+                      ]
+                    ]
+                ])
+            }
         }
         stage('Build') { 
             steps {
