@@ -34,16 +34,20 @@ pipeline {
         }
         stage('Build') { 
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                dir('microservice/oc-shopping-list') {
+                    sh 'mvn -B -DskipTests clean package'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                dir('microservice/oc-shopping-list') {
+                    sh 'mvn test'
+                }
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'
+                    junit 'microservice/oc-shopping-list/target/surefire-reports/*.xml'
                 }
             }
         }
