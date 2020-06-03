@@ -1,12 +1,35 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine' 
+            image 'maven:3-alpine'
             args '-v /root/.m2:/root/.m2 \
-              --env MAVEN_OPTS="-DproxyHost=192.168.201.201 -DproxyPort=3128"' 
+              --env MAVEN_OPTS="-DproxyHost=192.168.201.201 -DproxyPort=3128"'
         }
     }
     stages {
+        stage('Checkout') {
+            checkout([
+                $class: 'SubversionSCM',
+                additionalCredentials: [],
+                excludedCommitMessages: '',
+                excludedRegions: '',
+                excludedRevprop: '',
+                excludedUsers: '',
+                filterChangelog: false,
+                ignoreDirPropChanges: false,
+                includedRegions: '',
+                locations: [
+                  [
+                    remote: 'https://svn.chowsangsang.com/repos/uat/oc_storefront/microservice/oc-shopping-list/develop/omni-channel-phase1',
+                    cancelProcessOnExternalsFail: true,
+                    credentialsId: 'css_svn',
+                    depthOption: 'infinity',
+                    ignoreExternalsOption: true,
+                    local: 'microservice/oc-shopping-list'
+                  ]
+                ]
+            ])
+        }
         stage('Build') { 
             steps {
                 sh 'mvn -B -DskipTests clean package' 
