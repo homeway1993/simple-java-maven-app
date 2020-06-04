@@ -3,12 +3,15 @@ pipeline {
         docker {
             image 'maven:3-alpine'
             args '-v /root/.m2:/root/.m2 \
+              -v /usr/bin/kubectl:/usr/bin/kubectl:ro \
+              -v /root/.kube:/root/.kube:ro \
               --env MAVEN_OPTS="-DproxyHost=192.168.201.201 -DproxyPort=3128"'
         }
     }
     stages {
         stage('Checkout') {
             steps {
+                sh 'kubectl get pods'
                 checkout([
                     $class: 'SubversionSCM',
                     locations: [[
